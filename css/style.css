@@ -1,13 +1,32 @@
-p, li, a {
+p {
     font-family: "Droid Sans";
 }
-h1, h5 {
+.left-main li {
+    font-family: "Droid Sans";
+    list-style-type: circle;
+    margin-left: 20px;
+}
+a {
+    font-family: "Droid Sans";
+    font-weight: bold;
+}
+a:link {
+    color: red;
+    text-decoration: none;
+}
+a:hover {
+    color: midnightblue;
+    text-decoration: underline;
+}
+h1 {
     float: left;
     width: 570px;
     font-family: "Ubuntu";
     font-size: 200%;
     font-style: italic;
     font-weight: bold;
+    padding-bottom: 25px;
+    padding-top: 20px;
 }
 h2, h3, h4 {
     float: left;
@@ -15,6 +34,18 @@ h2, h3, h4 {
     font-family: "Ubuntu";
     font-size: 200%;
     font-weight: bold;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+h5 {
+    float: left;
+    width: 570px;
+    font-family: "Ubuntu";
+    font-size: 200%;
+    font-style: italic;
+    font-weight: bold;
+    padding-bottom: 40px;
+    padding-top: 60px;
 }
 body {
     background: #f9e933;
@@ -26,35 +57,51 @@ header .container, main .container, footer .container {
     max-width: 855px;
     margin: auto;
 }
-header, main {
+header {
     background: white;
     overflow: auto;
+}
+main {
+    background: white;
+    overflow: auto;
+    padding-bottom: 100px;
 }
 main .left-main, footer .left-footer {
     float: left;
     width: 570px;
 }
-header nav, main .right-main, footer .right-footer {
+header nav {
+    float: right;
+    width: 285px;
+    padding-top: 30px;
+}
+main .right-main, footer .right-footer {
     float: right;
     width: 285px;
 }
 footer .left-ul {
     float: left;
+    padding-bottom: 30px;
 }
 footer .right-ul {
     float: right;
+    padding-bottom: 30px;
+}
+.left-footer p {
+    font-style: italic;
+}
+.hr-line {
+    border-top: 1px solid black;
+    background-color: white;
+    background: white;
 }
 
 @font-face {
     font-family: "Droid Sans";
     src: url("../fonts/DroidSans.ttf") format("truetype");
-    font-style: normal;
-    font-weight: normal;
 }
 
 @font-face {
     font-family: "Ubuntu";
     src: url("../fonts/Ubuntu-Light.ttf") format("truetype");
-    font-style: normal;
-    font-weight: normal;
 }
