@@ -31,15 +31,23 @@ var main = function () {
                 $(".content").append('<input type="text" class="input-task">' +
                 '<button class="butt">+</button>' + '</input>');
                 var newTask;
-                $('.butt').on("click", function () {
+                var addTaskFromInput = function () {
                     newTask = $('.input-task').val();
                     if (newTask != '') {
                         toDos.push(newTask);
                         alert('Новое задание добавлено!');
                         $('.inp').val("");
-                    } 
+                    }
                     else { alert('Заполните поле ввода!'); }
+                };
+                $('.butt').on("click", function (event) {
+                    addTaskFromInput();
                 });
+                $('.input-task').on("keypress", function (event) {
+                    if (event.keyCode == 13) {
+                        addTaskFromInput();
+                    }
+                })
             }
             return false;
         });
