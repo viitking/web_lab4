@@ -101,11 +101,13 @@ footer .right-ul {
     width: 100px;
     margin-right: 10px;
     text-align: center;
-    background: #ddd;
+    background: #fff;
     padding: 5px;
+    font-family: "Droid Sans";
 }
 .tabs a span.active {
-    background: #eee;
+    background-color: #f9e933;
+    border: 2px solid black;
 }
 main .container .left-main ul {
     padding-bottom: 50px;
@@ -113,7 +115,7 @@ main .container .left-main ul {
 main .container .content {
     order: 9;
     flex-grow: 1;
-    width: 100%;
+    width: 70%;
     height: 100%;
     background: #fff;
     padding: 20px;
@@ -122,6 +124,8 @@ main .container .content {
 main .container .content li {
     font-family: "Droid Sans";
     padding-top: 5px;
+    font-weight: bold;
+    font-style: italic;
 }
 
 @font-face {

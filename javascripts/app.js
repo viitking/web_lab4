@@ -28,7 +28,18 @@ var main = function () {
                 });
                 $("main .content").append($content);
             } else if ($element.parent().is(":nth-child(3)")) {
-                console.log("Щелчок на 3 вкладке!");
+                $(".content").append('<input type="text" class="input-task">' +
+                '<button class="butt">+</button>' + '</input>');
+                var newTask;
+                $('.butt').on("click", function () {
+                    newTask = $('.input-task').val();
+                    if (newTask != '') {
+                        toDos.push(newTask);
+                        alert('Новое задание добавлено!');
+                        $('.inp').val("");
+                    } 
+                    else { alert('Заполните поле ввода!'); }
+                });
             }
             return false;
         });
