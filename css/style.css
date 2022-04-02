@@ -127,6 +127,10 @@ main .container .content li {
     font-weight: bold;
     font-style: italic;
 }
+main .container .content h3 {
+    float: none;
+    font-style: italic;
+}
 
 @font-face {
     font-family: "Droid Sans";

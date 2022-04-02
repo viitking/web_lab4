@@ -1,3 +1,32 @@
+var organizeByTags = function (toDoObjects) {
+    var tags = [];
+    // перебираем все задачи toDos
+    toDoObjects.forEach(function (toDo) {
+        // перебираем все теги для каждой задачи
+        toDo.tags.forEach(function (tag) {
+            // проверка на наличие тега в массиве
+            if (tags.indexOf(tag) === -1) {
+                tags.push(tag);
+            }
+        });
+    });
+    console.log(tags);
+    var tagObjects = tags.map(function (tag) {
+        // поиск задач, содержащих этот тег
+        var toDosWithTag = [];
+        toDoObjects.forEach(function (toDo) {
+            if (toDo.tags.indexOf(tag) !== -1) {
+                toDosWithTag.push(toDo.description);
+            }
+        });
+        // связываем каждый тег с объектом, который содержит
+        // название тега и массив
+        return { "name": tag, "toDos": toDosWithTag };
+    });
+    console.log(tagObjects);
+    return tagObjects;
+}
+
 var main = function (toDoObjects) {
     "use strict";
     var toDos = toDoObjects.map(function (toDo) {
@@ -23,7 +52,19 @@ var main = function (toDoObjects) {
                 });
                 $("main .content").append($content);
             } else if ($element.parent().is(":nth-child(3)")) {
-                console.log("Щелчок на вкладке ТЕГИ");
+                console.log("Щелчок на вкладке Теги");
+                var organizedByTag = organizeByTags(toDoObjects);
+				
+				 organizedByTag.forEach(function (tag) { 
+					var $tagName = $("<h3>").text(tag.name), 
+					$content = $("<ul>"); 
+					tag.toDos.forEach(function (description) { 
+						var $li = $("<li>").text(description); 
+						$content.append($li); 
+					});
+                    $("main .content").append($tagName);
+                    $("main .content").append($content);					
+				});
             } else if ($element.parent().is(":nth-child(4)")) {
                 $(".content").append('<input type="text" class="input-task">' +
                 '<button class="butt">+</button>' + '</input>');
