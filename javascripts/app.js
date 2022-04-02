@@ -23,6 +23,8 @@ var main = function (toDoObjects) {
                 });
                 $("main .content").append($content);
             } else if ($element.parent().is(":nth-child(3)")) {
+                console.log("Щелчок на вкладке ТЕГИ");
+            } else if ($element.parent().is(":nth-child(4)")) {
                 $(".content").append('<input type="text" class="input-task">' +
                 '<button class="butt">+</button>' + '</input>');
                 var newTask;
