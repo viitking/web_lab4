@@ -66,22 +66,37 @@ var main = function (toDoObjects) {
                     $("main .content").append($content);					
 				});
             } else if ($element.parent().is(":nth-child(4)")) {
-                $(".content").append('<input type="text" class="input-task">' +
-                '<button class="butt">+</button>' + '</input>');
-                var newTask;
+                var $input = $("<input>").addClass("description"),
+                $inputLabel = $("<p>").text("Новая задача:"),
+                $tagInput = $("<input>").addClass("tags"),
+                $tagLabel = $("<p>").text("Тэги: "),
+                $button = $("<button>").text("+");
                 var addTaskFromInput = function () {
-                    newTask = $('.input-task').val();
-                    if (newTask != '') {
-                        toDos.push(newTask);
-                        alert('Новое задание добавлено!');
-                        $('.inp').val("");
+                    var description = $input.val();                    
+                    //разделение по запятым
+                    if (description !== "" && $tagInput.val() !== "") {
+                        var tags = $tagInput.val().split(",");
+                        toDoObjects.push({"description":description, "tags":tags});
+                        //обновление toDos
+                        toDos = toDoObjects.map(function (toDo) {
+                            return toDo.description;
+                        });
+                        $input.val("");
+                        $tagInput.val("");
+                        alert("Задача и тег добавлены!");
                     }
                     else { alert('Заполните поле ввода!'); }
                 };
-                $('.butt').on("click", function (event) {
+                $("main .content").append($inputLabel).append($input).append($tagLabel).append($tagInput).append($button);
+                $button.on("click", function (event) {
                     addTaskFromInput();
                 });
-                $('.input-task').on("keypress", function (event) {
+                $input.on("keypress", function (event) {
+                    if (event.keyCode == 13) {
+                        addTaskFromInput();
+                    }
+                })
+                $tagInput.on("keypress", function (event) {
                     if (event.keyCode == 13) {
                         addTaskFromInput();
                     }
