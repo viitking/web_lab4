@@ -77,7 +77,14 @@ var main = function (toDoObjects) {
                     //разделение по запятым
                     if (description !== "" && $tagInput.val() !== "") {
                         var tags = $tagInput.val().split(",");
-                        toDoObjects.push({"description":description, "tags":tags});
+                        // создаем новый элемент списка задач
+                        var newToDo = {"description":description, "tags":tags};
+                        // здесь мы отправляем быстрое сообщение на маршрут списка задач
+                        $.post("todos", newToDo, function(result) {
+                            console.log(result);
+                            //нужно отправить новый объект на клиент после получения ответа сервера
+                            toDoObjects.push(newToDo);
+                        });
                         //обновление toDos
                         toDos = toDoObjects.map(function (toDo) {
                             return toDo.description;
