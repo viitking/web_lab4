@@ -39,6 +39,7 @@ var main = function (toDoObjects) {
             $(".tabs a span").removeClass("active");
             $element.addClass("active");
             $("main .content").empty();
+
             if ($element.parent().is(":nth-child(1)")) {
                 $content = $("<ul>");
                 for (var i = toDos.length; i > -1; i--) {
@@ -101,6 +102,16 @@ var main = function (toDoObjects) {
                         addTaskFromInput();
                     }
                 })
+            }
+            else if ($element.parent().is(":nth-child(5)")) {
+                if (document.scripts.length > 2) {
+                    
+                }
+                var js = document.createElement('script');
+                js.src = "javascripts/slideshow.js";
+                js.id = "slideshowscript";
+                document.body.appendChild(js);
+                console.log(document.scripts);
             }
             return false;
         });
