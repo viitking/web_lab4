@@ -1,45 +1,46 @@
 var express = require("express"),
 http = require("http"),
-app = express(),
-toDos = [
-    {
-        "description": "Купить продукты",
-        "tags": ["Шопинг", "Рутина"]
-    },
-    {
-        "description": "Сделать несколько новых задач",
-        "tags": ["Писательство", "Работа"]   
-    },
-    {
-        "description": "Подготовиться к лекции в понедельник",
-        "tags": ["Работа", "Преподавание"]  
-    },
-    {
-        "description": "Ответить на электронные письма",
-        "tags": ["Работа"]  
-    },
-    {
-        "description": "Вывести Грейси на прогулку в парк",
-        "tags": ["Рутина", "Питомцы"]  
-    },
-    {
-        "description": "Закончить писать книгу",
-        "tags": ["Писательство", "Работа"]  
-    }
-];
+mongoose = require("mongoose"),
+app = express();
 
 app.use(express.static(__dirname + "/client"));
-http.createServer(app).listen(3000);
-app.get("/todos.json", function(req, res) {
-    res.json(toDos);
-});
 // командуем Express принять поступающие объекты JSON
 app.use(express.urlencoded({ extended: true }));
+mongoose.connect('mongodb://127.0.0.1:27017/amazeriffic', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(res => {
+     console.log("Connected to MongoDB")
+}).catch(err => {
+     console.log(Error, err.message);
+});
+var ToDoSchema = mongoose.Schema({
+    description: String,
+    tags: [ String ]
+});
+var ToDo = mongoose.model("ToDo", ToDoSchema);
+app.get("/todos.json", function(req, res) {
+    ToDo.find({}, function(err, toDos) {
+        res.json(toDos);
+    });
+});
+http.createServer(app).listen(3000);
 app.post("/todos", function(req, res) {
-    // сейчас объект сохраняется в req.body
-    var newToDo = req.body;
-    console.log(newToDo);
-    toDos.push(newToDo);
-    console.log("Данные были отправлены на сервер!");
-    res.json({"message":"Вы размещаетесь на сервере!"});
-})
+    console.log(req.body);
+    var newToDo = new ToDo({"description":req.body.description, "tags":req.body.tags});
+    newToDo.save(function(err, result) {
+        if (err !== null) {
+            console.log(err);
+            res.send("ERRROR");
+        } else {
+            //клиент ожидает, что будут возвращены все задачи, поэтому для сохранения совместимости сделаем доп запрос
+            ToDo.find({}, function(err, result) {
+                if (err !== null) {
+                    //элемент не был сохранен
+                    res.send("Элемент не был сохранен");
+                }
+                res.json(result);
+            });
+        }
+    });
+});
