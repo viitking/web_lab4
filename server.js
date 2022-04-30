@@ -28,7 +28,13 @@ app.post("/todos", ToDosController.create);
 app.put("/todos/:id", ToDosController.update);
 app.delete("/todos/:id", ToDosController.destroy);
 
-app.get("/user/:username/todos.json", ToDosController.index);
-app.post("/user/:username/todos", ToDosController.create);
-app.put("/user/:username/todos/:id", ToDosController.update);
-app.delete("/user/:username/todos/:id", ToDosController.destroy);
+app.get("/users/:username/todos.json", ToDosController.index);
+app.post("/users/:username/todos", ToDosController.create);
+app.put("/users/:username/todos/:id", ToDosController.update);
+app.delete("/users/:username/todos/:id", ToDosController.destroy);
+
+app.get("/users.json", UsersController.index);
+app.post("/users", UsersController.create);
+app.get("/users/:username", UsersController.show);
+app.put("/users/:username", UsersController.update);
+app.delete("/users/:username", UsersController.destroy);
