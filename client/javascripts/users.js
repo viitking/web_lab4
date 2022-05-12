@@ -1,9 +1,9 @@
 var main = function (UsersObjects) {
 	"use strict";
 	var $input = $("<input>").addClass("username"),
-		$butRegister = $("<button>").text("Зарегистрироваться"),
-		$butLogin = $("<button>").text("Войти"),
-		$butEdit = $("<button>").text("Изменить имя пользователя"),
+		$butRegister = $("<button>").text("Создать аккаунт"),
+		$butLogin = $("<button>").text("Войти в аккаунт"),
+		$butEdit = $("<button>").text(" Изменить имя пользователя"),
 		$butDestroy = $("<button>").text("Удалить пользователя");
 
 	$butRegister.on("click", function() {
@@ -34,13 +34,13 @@ var main = function (UsersObjects) {
 		if (username !== null && username.trim() !== "") {
 			var loginUser = {"username": username};
 			$.ajax({
-				'url': '/users/'+username,
+				'url': '/users/' + username,
 				'type': 'GET'
 			}).done(function(responde) {
 				window.location.replace('users/' + username + '/');
 			}).fail(function(jqXHR, textStatus, error) {
 				console.log(error);
-				alert("Произошла ошибка!\n"+jqXHR.status + " " + jqXHR.textStatus);
+				alert("Произошла ошибка!\n" + jqXHR.status + " " + jqXHR.textStatus);
 			});
 		}
 	});
@@ -52,7 +52,7 @@ var main = function (UsersObjects) {
 				var newUsername = prompt("Введите новое имя пользователя", $input.val());
 				if (newUsername !== null && newUsername.trim() !== "") {
 					$.ajax({
-						'url': '/users/'+username,
+						'url': '/users/' + username,
 						'type': 'PUT',
 						'data': { 'username': newUsername }
 					}).done(function(responde) {
@@ -61,7 +61,7 @@ var main = function (UsersObjects) {
 						alert('Имя пользователя успешно изменено');
 					}).fail(function(jqXHR, textStatus, error) {
 						console.log(error);
-						alert("Произошла ошибка!\n"+jqXHR.status + " " + jqXHR.textStatus);
+						alert("Произошла ошибка!\n" + jqXHR.status + " " + jqXHR.textStatus);
 					});
 				}
 			}
@@ -72,17 +72,14 @@ var main = function (UsersObjects) {
 		if ($input.val() !== "") {
 			if ($input.val() !== null && $input.val().trim() !== "") {
 				var username = $input.val();
-				if (confirm("Действительно удалить пользователя " + username + "?")) {
+				if (confirm("Вы уверены, что хотете удалить пользователя " + username + "?")) {
 					$.ajax({
-						'url': '/users/'+username,
+						'url': '/users/' + username,
 						'type': 'DELETE',
 					}).done(function(responde) {
-						console.log(responde);
-						$input.val("");
-						alert('Пользователь успешно удален');
+
 					}).fail(function(jqXHR, textStatus, error) {
-						console.log(error);
-						alert("Произошла ошибка!\n"+jqXHR.status + " " + jqXHR.textStatus);
+
 					});
 				}
 			}
@@ -90,8 +87,8 @@ var main = function (UsersObjects) {
 	});
 
 	$("main .container").append($input);
-	$("main .container").append($butRegister);
 	$("main .container").append($butLogin);
+	$("main .container").append($butRegister);
 	$("main .container").append($butEdit);
 	$("main .container").append($butDestroy);
 
